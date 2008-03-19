@@ -1,0 +1,8 @@
+## Interface: 20400
+
+## Title: Addon Panel
+## Notes: Simple addon control panel
+## Author: Tekkub Stoutwrithe
+## Version: Alpha
+
+AddonPanel.lua
