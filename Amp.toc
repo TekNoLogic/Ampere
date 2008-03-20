@@ -1,0 +1,8 @@
+## Interface: 20400
+
+## Title: Amp
+## Notes: Addon management panel
+## Author: Tekkub Stoutwrithe
+## Version: Alpha
+
+Amp.lua

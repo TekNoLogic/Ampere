@@ -54,7 +54,7 @@ end
 
 
 local frame = CreateFrame("Frame", nil, UIParent)
-frame.name = "Addons"
+frame.name = "Addon Management Panel"
 frame:Hide()
 frame:SetScript("OnShow", function(frame)
 	local function MakeButton(parent)
@@ -80,7 +80,7 @@ frame:SetScript("OnShow", function(frame)
 
 	local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 	title:SetPoint("TOPLEFT", 16, -16)
-	title:SetText("Addons")
+	title:SetText("Addon Management Panel")
 
 
 	local subtitle = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
