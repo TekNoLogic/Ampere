@@ -4,5 +4,12 @@
 ## Notes: Addon management panel
 ## Author: Tekkub Stoutwrithe
 ## Version: Alpha
+## X-Website: http://www.tekkub.net/
+## X-Email: tekkub-wow@googlegroups.com
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Always: delayed
+
+tekKonfigAboutPanel.lua
 
 Amp.lua
