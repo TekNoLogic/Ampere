@@ -191,7 +191,7 @@ frame:SetScript("OnShow", function(frame)
 
 	frame:EnableMouseWheel()
 	frame:SetScript("OnMouseWheel", function(self, val)
-		offset = math.max(math.min(offset - val, NUMADDONS-#rows), 0)
+		offset = math.max(math.min(offset - math.floor(val*#rows/2), NUMADDONS-#rows), 0)
 		Refresh()
 	end)
 
