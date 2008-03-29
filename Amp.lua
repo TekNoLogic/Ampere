@@ -1,7 +1,6 @@
 
 local Refresh
-local EDGEGAP, ROWHEIGHT = 16, 20
-local GAP = 4
+local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
 local NUMADDONS = GetNumAddOns()
 local GOLD_TEXT = {1.0, 0.82, 0}
 local STATUS_COLORS = {
@@ -108,10 +107,10 @@ frame:SetScript("OnShow", function(frame)
 		Refresh()
 	end
 	local function LoadOnClick(self) LoadAddOn(self:GetParent().addon) end
-	for i=1,math.floor((305-22)/ROWHEIGHT) do
+	for i=1,math.floor((305-22)/(ROWHEIGHT + ROWGAP)) do
 		local row = CreateFrame("Button", nil, frame)
 		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
-		else row:SetPoint("TOP", anchor, "BOTTOM") end
+		else row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP) end
 		row:SetPoint("LEFT", EDGEGAP, 0)
 		row:SetPoint("RIGHT", -EDGEGAP, 0)
 		row:SetHeight(ROWHEIGHT)
