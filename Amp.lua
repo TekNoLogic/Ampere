@@ -54,7 +54,7 @@ end
 
 
 local frame = CreateFrame("Frame", nil, UIParent)
-frame.name = "Addon Management Panel"
+frame.name = "Amp"
 frame:Hide()
 frame:SetScript("OnShow", function(frame)
 	local function MakeButton(parent)
@@ -217,4 +217,4 @@ end)
 InterfaceOptions_AddCategory(frame)
 
 
-LibStub("tekKonfig-AboutPanel").new("Control Freak", "ControlFreak")
+LibStub("tekKonfig-AboutPanel").new("Amp", "Amp")
