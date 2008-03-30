@@ -1,5 +1,5 @@
 
-local Refresh
+local Refresh = function() end
 local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
 local NUMADDONS = GetNumAddOns()
 local GOLD_TEXT = {1.0, 0.82, 0}
