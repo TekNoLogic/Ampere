@@ -10,6 +10,7 @@
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
 
+LibStub.lua
 tekKonfigAboutPanel.lua
 
 Amp.lua
