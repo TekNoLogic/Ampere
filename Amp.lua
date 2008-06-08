@@ -106,7 +106,14 @@ frame:SetScript("OnShow", function(frame)
 		if enabled then DisableAddOn(addon) else EnableAddOn(addon) end
 		Refresh()
 	end
-	local function LoadOnClick(self) LoadAddOn(self:GetParent().addon) end
+	local function LoadOnClick(self)
+		local addon = self:GetParent().addon
+		if not select(4,GetAddOnInfo(addon)) then
+			EnableAddOn(addon)
+			LoadAddOn(addon)
+			DisableAddOn(addon)
+		else LoadAddOn(addon) end
+	end
 	for i=1,math.floor((305-22)/(ROWHEIGHT + ROWGAP)) do
 		local row = CreateFrame("Button", nil, frame)
 		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
@@ -159,7 +166,7 @@ frame:SetScript("OnShow", function(frame)
 				local name, title, notes, enabled, loadable, reason = GetAddOnInfo(i + offset)
 				local loaded = IsAddOnLoaded(i + offset)
 				local lod = IsAddOnLoadOnDemand(i + offset)
-				if enabled and lod and not loaded and not reason then
+				if lod and not loaded and (not reason or reason == "DISABLED") then
 					reason = "LOAD_ON_DEMAND"
 					row.loadbutton:Show()
 					row.loadbutton:SetWidth(45)
