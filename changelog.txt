@@ -1,3 +1,6 @@
+2.4.2.4-Beta
+    Allow for one-time loading of disabled LoD addons
+
 2.4.1.3-Beta
     LibStub!
 
