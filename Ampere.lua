@@ -53,7 +53,7 @@ end
 
 
 local frame = CreateFrame("Frame", nil, UIParent)
-frame.name = "Amp"
+frame.name = "Ampere"
 frame:Hide()
 frame:SetScript("OnShow", function(frame)
 	local function MakeButton(parent)
@@ -223,4 +223,4 @@ end)
 InterfaceOptions_AddCategory(frame)
 
 
-LibStub("tekKonfig-AboutPanel").new("Amp", "Amp")
+LibStub("tekKonfig-AboutPanel").new("Ampere", "Ampere")

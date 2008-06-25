@@ -1,7 +1,7 @@
 ## Interface: 20400
 
-## Title: Amp
-## Notes: Addon management panel
+## Title: Ampere
+## Notes: Addon management panel extreme release edition
 ## Author: Tekkub Stoutwrithe
 ## Version: Alpha
 ## X-Website: http://www.tekkub.net/
@@ -13,4 +13,4 @@
 LibStub.lua
 tekKonfigAboutPanel.lua
 
-Amp.lua
+Ampere.lua
