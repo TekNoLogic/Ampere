@@ -1,9 +1,9 @@
-Amp is a small addon designed to mirror the functionality of the login screen "Addons" button in-game.
+Ampere is a small addon designed to mirror the functionality of the login screen "Addons" button in-game.
 It's designed to fit inside the config GUI introduced in patch 2.4.
-Amp lets you quickly enable and disable addons, reload the UI, and load LoadOnDemand addons.
+Ampere lets you quickly enable and disable addons, reload the UI, and load LoadOnDemand addons.
 
 h2. Links
 
-<b>Visit "my site":http://www.tekkub.net/addons/Amp for more info.<br>
-Please report all bugs and feature requests to my "Google Code":http://code.google.com/p/tekkub-wow/issues/list?can=1&q=addon:Amp&sort=status+milestone&colspec=ID%20Type%20Status%20Addon%20Milestone%20Summary tracker<br>
+<b>Visit "my site":http://www.tekkub.net/addons/Ampere for more info.<br>
+Please report all bugs and feature requests to my "Google Code":http://code.google.com/p/tekkub-wow/issues/list?can=1&q=addon:Ampere&sort=status+milestone&colspec=ID%20Type%20Status%20Addon%20Milestone%20Summary tracker<br>
 Please direct all feedback and questions to my "Google Groups":http://groups-beta.google.com/group/tekkub-wow mailinglist</b>
