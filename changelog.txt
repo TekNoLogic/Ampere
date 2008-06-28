@@ -1,3 +1,6 @@
+2.4.2.5-Beta
+    I guess I'll rename to Ampere, ugh... whiney bitches
+
 2.4.2.4-Beta
     Allow for one-time loading of disabled LoD addons
 
