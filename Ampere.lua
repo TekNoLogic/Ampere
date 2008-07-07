@@ -224,3 +224,14 @@ InterfaceOptions_AddCategory(frame)
 
 
 LibStub("tekKonfig-AboutPanel").new("Ampere", "Ampere")
+
+
+----------------------------------------
+--      Quicklaunch registration      --
+----------------------------------------
+
+local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("Ampere", {
+	launcher = true,
+	icon = "Interface\\Icons\\Spell_Nature_StormReach",
+	OnClick = function() InterfaceOptionsFrame_OpenToFrame(frame) end,
+})
