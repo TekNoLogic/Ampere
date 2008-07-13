@@ -3,7 +3,7 @@
 ## Title: Ampere
 ## Notes: Addon management panel extreme release edition
 ## Author: Tekkub Stoutwrithe
-## Version: Alpha
+## Version: 2.4.2.6
 ## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
 
