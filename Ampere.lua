@@ -231,7 +231,7 @@ LibStub("tekKonfig-AboutPanel").new("Ampere", "Ampere")
 ----------------------------------------
 
 local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("Ampere", {
-	launcher = true,
+	type = "launcher",
 	icon = "Interface\\Icons\\Spell_Nature_StormReach",
 	OnClick = function() InterfaceOptionsFrame_OpenToFrame(frame) end,
 })
