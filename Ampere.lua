@@ -61,7 +61,7 @@ frame:SetScript("OnShow", function(frame)
 		butt:SetWidth(80) butt:SetHeight(22)
 
 		butt:SetHighlightFontObject(GameFontHighlightSmall)
-		butt:SetTextFontObject(GameFontNormalSmall)
+		butt:SetNormalFontObject(GameFontNormalSmall)
 
 		butt:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
 		butt:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")

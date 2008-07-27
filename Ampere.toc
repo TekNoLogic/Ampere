@@ -1,4 +1,4 @@
-## Interface: 20400
+## Interface: 30000
 
 ## Title: Ampere
 ## Notes: Addon management panel extreme release edition
