@@ -235,3 +235,11 @@ local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("Ampere", 
 	icon = "Interface\\Icons\\Spell_Nature_StormReach",
 	OnClick = function() InterfaceOptionsFrame_OpenToFrame(frame) end,
 })
+
+
+----------------------------
+--      Reload Slash      --
+----------------------------
+
+SLASH_RELOAD1 = "/rl"
+SlashCmdList.RELOAD = ReloadUI
