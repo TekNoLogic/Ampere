@@ -1,3 +1,6 @@
+2.4.3.8-Beta
+    Tweak launcher declaration to match the updated spec
+
 2.4.2.7-Beta
     Fix embeds
 
