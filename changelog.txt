@@ -1,3 +1,7 @@
+3.0.1.9-Beta
+    Update for Wrath
+    Add reload slash command
+
 2.4.3.8-Beta
     Tweak launcher declaration to match the updated spec
 
