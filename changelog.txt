@@ -1,3 +1,6 @@
+3.0.1.10-Beta
+    Make compatible with live and beta
+
 3.0.1.9-Beta
     Update for Wrath
     Add reload slash command
