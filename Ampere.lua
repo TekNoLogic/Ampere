@@ -1,3 +1,4 @@
+if IS_WRATH_BUILD == nil then IS_WRATH_BUILD = (select(4, GetBuildInfo()) >= 30000) end
 
 local Refresh = function() end
 local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
@@ -61,7 +62,7 @@ frame:SetScript("OnShow", function(frame)
 		butt:SetWidth(80) butt:SetHeight(22)
 
 		butt:SetHighlightFontObject(GameFontHighlightSmall)
-		butt:SetNormalFontObject(GameFontNormalSmall)
+		if IS_WRATH_BUILD then butt:SetNormalFontObject(GameFontNormalSmall) else butt:SetTextFontObject(GameFontNormalSmall) end
 
 		butt:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
 		butt:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")
