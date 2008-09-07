@@ -95,9 +95,20 @@ frame:SetScript("OnShow", function(frame)
 	subtitle:SetText("This panel can be used to toggle addons, load Load-on-Demand addons, or reload the UI.  You must reload UI to unload an addon.  Settings are saved on a per-char basis.")
 
 	local rows, anchor = {}
+	local function helper(...)
+		for i=1,select("#", ...) do
+			local dep = select(i, ...)
+			local loaded = IsAddOnLoaded(dep) and 1 or 0
+			GameTooltip:AddDoubleLine(i == 1 and "Dependencies:" or " ", dep, nil, nil, nil, 1, loaded, loaded)
+		end
+	end
 	local function OnEnter(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-		GameTooltip:AddLine()
+		local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(self.addon)
+		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
+		GameTooltip:AddLine(title, nil, nil, nil, true)
+		GameTooltip:AddLine(notes, 1, 1, 1, true)
+		helper(GetAddOnDependencies(self.addon))
+		GameTooltip:Show()
 	end
 	local function OnLeave() GameTooltip:Hide() end
 	local function OnClick(self)
@@ -156,6 +167,9 @@ frame:SetScript("OnShow", function(frame)
 		reason:SetPoint("LEFT", title, "RIGHT")
 		reason:SetJustifyH("RIGHT")
 		row.reason = reason
+
+		row:SetScript("OnEnter", OnEnter)
+		row:SetScript("OnLeave", OnLeave)
 	end
 
 
