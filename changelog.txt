@@ -1,3 +1,7 @@
+3.0.1.11-Beta
+    Embed update
+    Implement tooltips
+
 3.0.1.10-Beta
     Make compatible with live and beta
 
