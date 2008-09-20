@@ -1,4 +1,5 @@
 if IS_WRATH_BUILD == nil then IS_WRATH_BUILD = (select(4, GetBuildInfo()) >= 30000) end
+if not IS_WRATH_BUILD then InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToFrame end
 
 local Refresh = function() end
 local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
@@ -53,7 +54,7 @@ DisableAllAddOns = function(...)
 end
 
 
-local frame = CreateFrame("Frame", nil, UIParent)
+local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Ampere"
 frame:Hide()
 frame:SetScript("OnShow", function(frame)
@@ -248,7 +249,7 @@ LibStub("tekKonfig-AboutPanel").new("Ampere", "Ampere")
 local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("Ampere", {
 	type = "launcher",
 	icon = "Interface\\Icons\\Spell_Nature_StormReach",
-	OnClick = function() InterfaceOptionsFrame_OpenToFrame(frame) end,
+	OnClick = function() InterfaceOptionsFrame_OpenToCategory(frame) end,
 })
 
 
