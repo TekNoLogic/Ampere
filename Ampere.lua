@@ -132,7 +132,7 @@ frame:SetScript("OnShow", function(frame)
 		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
 		else row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP) end
 		row:SetPoint("LEFT", EDGEGAP, 0)
-		row:SetPoint("RIGHT", -EDGEGAP, 0)
+		row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
 		row:SetHeight(ROWHEIGHT)
 		anchor = row
 		rows[i] = row
@@ -211,11 +211,23 @@ frame:SetScript("OnShow", function(frame)
 	Refresh()
 
 
-	frame:EnableMouseWheel()
-	frame:SetScript("OnMouseWheel", function(self, val)
-		offset = math.max(math.min(offset - math.floor(val*#rows/2), NUMADDONS-#rows), 0)
+	local scrollbar = LibStub("tekKonfig-Scroll").new(frame, nil, #rows/2)
+	scrollbar:ClearAllPoints()
+	scrollbar:SetPoint("TOP", rows[1], 0, -16)
+	scrollbar:SetPoint("BOTTOM", rows[#rows], 0, 16)
+	scrollbar:SetPoint("RIGHT", -16, 0)
+	scrollbar:SetMinMaxValues(0, NUMADDONS-#rows)
+	scrollbar:SetValue(0)
+
+	local f = scrollbar:GetScript("OnValueChanged")
+	scrollbar:SetScript("OnValueChanged", function(self, value, ...)
+		offset = value
 		Refresh()
+		return f(self, value, ...)
 	end)
+
+	frame:EnableMouseWheel()
+	frame:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*#rows/2) end)
 
 
 	local enableall = MakeButton()

@@ -11,6 +11,7 @@
 ## X-LoadOn-Always: delayed
 
 LibStub.lua
+tekKonfigScroll.lua
 tekKonfigAboutPanel.lua
 CallbackHandler-1.0.lua
 LibDataBroker-1.1\LibDataBroker-1.1.lua
