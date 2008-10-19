@@ -216,7 +216,7 @@ frame:SetScript("OnShow", function(frame)
 	scrollbar:SetPoint("TOP", rows[1], 0, -16)
 	scrollbar:SetPoint("BOTTOM", rows[#rows], 0, 16)
 	scrollbar:SetPoint("RIGHT", -16, 0)
-	scrollbar:SetMinMaxValues(0, NUMADDONS-#rows)
+	scrollbar:SetMinMaxValues(0, math.max(0, NUMADDONS-#rows))
 	scrollbar:SetValue(0)
 
 	local f = scrollbar:GetScript("OnValueChanged")
