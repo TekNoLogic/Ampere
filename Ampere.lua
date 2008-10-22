@@ -13,6 +13,7 @@ local STATUS_COLORS = {
 	DEP_MISSING = {1, 0.5, 0},
 	DEP_INCOMPATIBLE = {1, 0, 0},
 	INCOMPATIBLE = {1, 0, 0},
+	INTERFACE_VERSION = {1, 0, 0},
 }
 local L = {
 	DISABLED_AT_RELOAD = "Disabled on ReloadUI",
