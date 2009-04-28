@@ -179,6 +179,8 @@ frame:SetScript("OnShow", function(frame)
 		for i,row in ipairs(rows) do
 			if (i + offset) <= NUMADDONS then
 				local name, title, notes, enabled, loadable, reason = GetAddOnInfo(i + offset)
+				local version = GetAddOnMetadata(i + offset, "Version")
+				if version then title = title.. " |cffff66ff("..version:trim()..")" end
 				local loaded = IsAddOnLoaded(i + offset)
 				local lod = IsAddOnLoadOnDemand(i + offset)
 				if lod and not loaded and (not reason or reason == "DISABLED") then
