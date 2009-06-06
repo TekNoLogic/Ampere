@@ -97,14 +97,18 @@ frame:SetScript("OnShow", function(frame)
 		for i=1,select("#", ...) do
 			local dep = select(i, ...)
 			local loaded = IsAddOnLoaded(dep) and 1 or 0
-			GameTooltip:AddDoubleLine(i == 1 and "Dependencies:" or " ", dep, nil, nil, nil, 1, loaded, loaded)
+			GameTooltip:AddDoubleLine(i == 1 and "Dependencies:" or " ", dep, 1, 0.4, 0, 1, loaded, loaded)
 		end
 	end
 	local function OnEnter(self)
 		local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(self.addon)
+		local author = GetAddOnMetadata(self.addon, "Author")
+		local version = GetAddOnMetadata(self.addon, "Version")
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
 		GameTooltip:AddLine(title, nil, nil, nil, true)
 		GameTooltip:AddLine(notes, 1, 1, 1, true)
+		if author then GameTooltip:AddDoubleLine("Author:", author, 1,0.4,0, 1,1,1) end
+		if version then GameTooltip:AddDoubleLine("Version:", version, 1,0.4,0, 1,1,1) end
 		helper(GetAddOnDependencies(self.addon))
 		GameTooltip:Show()
 	end
