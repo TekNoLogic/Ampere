@@ -1,3 +1,8 @@
+3.1.0.15-Release
+    Add version numbers to list
+    Add more info to the tooltip
+    Add fallback color in case blizzy adds new load fail reasons
+
 3.0.3.14-Release
     Add INTERFACE_VERSION reason
     Remove 2.4.3 compat
