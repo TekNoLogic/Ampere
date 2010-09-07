@@ -2,6 +2,7 @@
 
 ## Title: Ampere
 ## Notes: Addon management panel extreme release edition
+## Notes-koKR: 애드온 관리 패널 익스트림 릴리즈 에디션
 ## Author: Tekkub Stoutwrithe
 ## Version: Alpha
 ## X-Website: http://www.tekkub.net/
@@ -16,4 +17,5 @@ tekKonfigAboutPanel.lua
 CallbackHandler-1.0.lua
 LibDataBroker-1.1\LibDataBroker-1.1.lua
 
+Locale.lua
 Ampere.lua

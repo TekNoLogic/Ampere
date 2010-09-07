@@ -1,4 +1,6 @@
 
+local myname, ns = ...
+local L = ns.L
 local Refresh = function() end
 local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
 local NUMADDONS = GetNumAddOns()
@@ -13,10 +15,6 @@ local STATUS_COLORS = setmetatable({
 	DISABLED_AT_RELOAD = {163/256, 53/256, 238/256},
 	DEP_MISSING = {1, 0.5, 0},
 }, {__index = function() return RED_TEXT end})
-local L = {
-	DISABLED_AT_RELOAD = "Disabled on ReloadUI",
-	LOAD_ON_DEMAND = "LoD",
-}
 
 
 local enabledstates = setmetatable({}, {
@@ -78,7 +76,7 @@ frame:SetScript("OnShow", function(frame)
 
 	local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 	title:SetPoint("TOPLEFT", 16, -16)
-	title:SetText("Addon Management Panel")
+	title:SetText(L["Addon Management Panel"])
 
 
 	local subtitle = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
@@ -90,14 +88,14 @@ frame:SetScript("OnShow", function(frame)
 	subtitle:SetJustifyH("LEFT")
 	subtitle:SetJustifyV("TOP")
 --~ 	subtitle:SetMaxLines(3)
-	subtitle:SetText("This panel can be used to toggle addons, load Load-on-Demand addons, or reload the UI.  You must reload UI to unload an addon.  Settings are saved on a per-char basis.")
+	subtitle:SetText(L["This panel can be used to toggle addons, load Load-on-Demand addons, or reload the UI.  You must reload UI to unload an addon.  Settings are saved on a per-char basis."])
 
 	local rows, anchor = {}
 	local function helper(...)
 		for i=1,select("#", ...) do
 			local dep = select(i, ...)
 			local loaded = IsAddOnLoaded(dep) and 1 or 0
-			GameTooltip:AddDoubleLine(i == 1 and "Dependencies:" or " ", dep, 1, 0.4, 0, 1, loaded, loaded)
+			GameTooltip:AddDoubleLine(i == 1 and L["Dependencies:"] or " ", dep, 1, 0.4, 0, 1, loaded, loaded)
 		end
 	end
 	local function OnEnter(self)
@@ -107,8 +105,8 @@ frame:SetScript("OnShow", function(frame)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
 		GameTooltip:AddLine(title, nil, nil, nil, true)
 		GameTooltip:AddLine(notes, 1, 1, 1, true)
-		if author then GameTooltip:AddDoubleLine("Author:", author, 1,0.4,0, 1,1,1) end
-		if version then GameTooltip:AddDoubleLine("Version:", version, 1,0.4,0, 1,1,1) end
+		if author then GameTooltip:AddDoubleLine(L["Author:"], author, 1,0.4,0, 1,1,1) end
+		if version then GameTooltip:AddDoubleLine(L["Version:"], version, 1,0.4,0, 1,1,1) end
 		helper(GetAddOnDependencies(self.addon))
 		GameTooltip:Show()
 	end
@@ -159,7 +157,7 @@ frame:SetScript("OnShow", function(frame)
 
 		local loadbutton = MakeButton(row)
 		loadbutton:SetPoint("RIGHT")
-		loadbutton:SetText("Load")
+		loadbutton:SetText(L["Load"])
 		loadbutton:SetScript("OnClick", LoadOnClick)
 		row.loadbutton = loadbutton
 
@@ -235,19 +233,19 @@ frame:SetScript("OnShow", function(frame)
 
 	local enableall = MakeButton()
 	enableall:SetPoint("BOTTOMLEFT", 16, 16)
-	enableall:SetText("Enable All")
+	enableall:SetText(L["Enable All"])
 	enableall:SetScript("OnClick", EnableAllAddOns)
 
 
 	local disableall = MakeButton()
 	disableall:SetPoint("LEFT", enableall, "RIGHT", 4, 0)
-	disableall:SetText("Disable All")
+	disableall:SetText(L["Disable All"])
 	disableall:SetScript("OnClick", DisableAllAddOns)
 
 
 	local reload = MakeButton()
 	reload:SetPoint("BOTTOMRIGHT", -16, 16)
-	reload:SetText("Reload UI")
+	reload:SetText(L["Reload UI"])
 	reload:SetScript("OnClick", ReloadUI)
 end)
 
