@@ -17,5 +17,6 @@ ns.L = setmetatable(l == "koKR" and {
 	["Version:"] = "버전:",
 } or {
 	DISABLED_AT_RELOAD = "Disabled on ReloadUI",
-	LOAD_ON_DEMAND = "LoD",
+	LOADED_AT_RELOAD = "Loaded on ReloadUI",
+	LOAD_ON_DEMAND = "Load on Demand",
 }, {__index=function(t,i) return i end})
