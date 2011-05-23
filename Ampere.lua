@@ -126,6 +126,14 @@ frame:SetScript("OnShow", function(frame)
 			DisableAddOn(addon)
 		else LoadAddOn(addon) end
 	end
+	local function OnButtEntry(self)
+		self.row:LockHighlight()
+		OnEnter(self.row)
+	end
+	local function OnButtPullout(self)
+		self.row:UnlockHighlight()
+		OnLeave(self.row)
+	end
 	for i=1,math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP)) do
 		local row = CreateFrame("Button", nil, frame)
 		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
@@ -135,6 +143,13 @@ frame:SetScript("OnShow", function(frame)
 		row:SetHeight(ROWHEIGHT)
 		anchor = row
 		rows[i] = row
+
+
+		local highlight = row:CreateTexture()
+		highlight:SetTexture("Interface\\QuestFrame\\UI-QuestLogTitleHighlight")
+		highlight:SetVertexColor(.196, .388, .8, 0.75)
+		highlight:SetAllPoints(row)
+		row:SetHighlightTexture(highlight)
 
 
 		local check = CreateFrame("CheckButton", nil, row)
@@ -147,6 +162,9 @@ frame:SetScript("OnShow", function(frame)
 		check:SetDisabledCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
 		check:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
 		check:SetScript("OnClick", OnClick)
+		check:SetScript("OnEnter", OnButtEntry)
+		check:SetScript("OnLeave", OnButtPullout)
+		check.row = row
 		row.check = check
 
 
@@ -159,6 +177,9 @@ frame:SetScript("OnShow", function(frame)
 		loadbutton:SetPoint("RIGHT")
 		loadbutton:SetText(L["Load"])
 		loadbutton:SetScript("OnClick", LoadOnClick)
+		loadbutton:SetScript("OnEnter", OnButtEntry)
+		loadbutton:SetScript("OnLeave", OnButtPullout)
+		loadbutton.row = row
 		row.loadbutton = loadbutton
 
 
