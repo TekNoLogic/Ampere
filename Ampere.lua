@@ -126,7 +126,7 @@ frame:SetScript("OnShow", function(frame)
 			DisableAddOn(addon)
 		else LoadAddOn(addon) end
 	end
-	for i=1,math.floor((305-22)/(ROWHEIGHT + ROWGAP)) do
+	for i=1,math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP)) do
 		local row = CreateFrame("Button", nil, frame)
 		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
 		else row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP) end
