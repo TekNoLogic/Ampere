@@ -11,6 +11,7 @@
 
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
+## X-LoadOn-InterfaceOptions: Ampere
 
 LibStub.lua
 tekKonfigScroll.lua

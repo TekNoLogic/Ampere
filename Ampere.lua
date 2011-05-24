@@ -50,6 +50,8 @@ DisableAllAddOns = function(...)
 end
 
 
+if AddonLoader and AddonLoader.RemoveInterfaceOptions then AddonLoader:RemoveInterfaceOptions("Ampere") end
+
 local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Ampere"
 frame:Hide()
