@@ -1,9 +1,0 @@
-Ampere is a small addon designed to mirror the functionality of the login screen "Addons" button in-game.
-It's designed to fit inside the config GUI introduced in patch 2.4.
-Ampere lets you quickly enable and disable addons, reload the UI, and load LoadOnDemand addons.
-
-h2. Links
-
-<b>Visit "my site":http://tekkub.net/ for more great addons<br>
-Please report all bugs and feature requests to my "Github tracker":http://github.com/tekkub/Ampere/issues<br>
-Please direct all feedback and questions to my "Google Groups":http://groups-beta.google.com/group/tekkub-wow mailinglist</b>

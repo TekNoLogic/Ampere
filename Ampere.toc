@@ -4,7 +4,7 @@
 ## Notes: Addon management panel extreme release edition
 ## Notes-koKR: 애드온 관리 패널 익스트림 릴리즈 에디션
 ## Author: Tekkub Stoutwrithe
-## Version: Alpha
+## Version: 4.1.0.16
 ## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
 
