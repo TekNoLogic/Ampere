@@ -135,20 +135,24 @@ frame:SetScript("OnShow", function(frame)
 		self.row:UnlockHighlight()
 		OnLeave(self.row)
 	end
-	for i=1,math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP))*2 do
+	local NUMROWS = math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP))
+	local container = CreateFrame("Frame", nil, frame)
+	container:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
+	container:SetPoint("LEFT", EDGEGAP, 0)
+	container:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+	for i=1,NUMROWS*2 do
 		local row = CreateFrame("CheckButton", nil, frame)
 		if not anchor then
-			row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
-			row:SetPoint("LEFT", EDGEGAP, 0)
-			row:SetPoint("RIGHT", frame, "CENTER", -3, 0)
+			row:SetPoint("TOPLEFT", container)
+			row:SetPoint("RIGHT", container, "CENTER", -3, 0)
 		elseif i%2 == 0 then
 			row:SetPoint("TOP", anchor, "TOP")
-			row:SetPoint("LEFT", frame, "CENTER", 3, 0)
-			row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+			row:SetPoint("LEFT", container, "CENTER", 3, 0)
+			row:SetPoint("RIGHT", container)
 		else
 			row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP)
-			row:SetPoint("LEFT", EDGEGAP, 0)
-			row:SetPoint("RIGHT", frame, "CENTER", -3, 0)
+			row:SetPoint("LEFT", container)
+			row:SetPoint("RIGHT", container, "CENTER", -3, 0)
 			-- row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
 		end
 		row:SetHeight(ROWHEIGHT)
