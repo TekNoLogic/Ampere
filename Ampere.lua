@@ -235,7 +235,7 @@ frame:SetScript("OnShow", function(frame)
 			if (i + offset) <= NUMADDONS then
 				local name, title, notes, enabled, loadable, reason = GetAddOnInfo(i + offset)
 				local version = GetAddOnMetadata(i + offset, "Version")
-				local launchericon = GetAddOnMetadata(i + offset, "X-LoadOn-LDB-Launcher")
+				local launchericon = GetAddOnMetadata(i + offset, "X-LoadOn-LDB-Launcher") or GetAddOnMetadata(i + offset, "X-Icon")
 
 				local loaded = IsAddOnLoaded(i + offset)
 				local lod = IsAddOnLoadOnDemand(i + offset)
