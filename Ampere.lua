@@ -2,7 +2,7 @@
 local myname, ns = ...
 local L = ns.L
 local Refresh = function() end
-local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 50, 2, 4
+local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 50, 4, 4
 local NUMADDONS = GetNumAddOns()
 local GOLD_TEXT = {1.0, 0.82, 0}
 local RED_TEXT = {1, 0, 0}
@@ -138,23 +138,31 @@ frame:SetScript("OnShow", function(frame)
 		OnLeave(self.row)
 	end
 	local NUMROWS = math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP))
+	local CONTAINERGAP = 5
 	local container = CreateFrame("Frame", nil, frame)
 	container:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
 	container:SetPoint("LEFT", EDGEGAP, 0)
 	container:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+	container:SetHeight(NUMROWS * ROWHEIGHT + (NUMROWS-1) * ROWGAP + 2*CONTAINERGAP)
+
+	local back = container:CreateTexture(nil, "BACKGROUND")
+	back:SetAllPoints()
+	back:SetTexture("Interface\\Spellbook\\UI-GlyphFrame")
+	back:SetTexCoord(0.49511719, 0.64941406, 0.42578125, 0.79492188)
+
 	for i=1,NUMROWS*2 do
 		local row = CreateFrame("CheckButton", nil, frame)
 		if not anchor then
-			row:SetPoint("TOPLEFT", container)
-			row:SetPoint("RIGHT", container, "CENTER", -3, 0)
+			row:SetPoint("TOPLEFT", container, CONTAINERGAP, -CONTAINERGAP)
+			row:SetPoint("RIGHT", container, "CENTER", -ROWGAP/2, 0)
 		elseif i%2 == 0 then
 			row:SetPoint("TOP", anchor, "TOP")
-			row:SetPoint("LEFT", container, "CENTER", 3, 0)
-			row:SetPoint("RIGHT", container)
+			row:SetPoint("LEFT", container, "CENTER", ROWGAP/2, 0)
+			row:SetPoint("RIGHT", container, -CONTAINERGAP, 0)
 		else
 			row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP)
-			row:SetPoint("LEFT", container)
-			row:SetPoint("RIGHT", container, "CENTER", -3, 0)
+			row:SetPoint("LEFT", container, CONTAINERGAP, 0)
+			row:SetPoint("RIGHT", container, "CENTER", -ROWGAP/2, 0)
 			-- row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
 		end
 		row:SetHeight(ROWHEIGHT)
@@ -173,18 +181,6 @@ frame:SetScript("OnShow", function(frame)
 
 		if i%2 == 1 then anchor = row end
 		rows[i] = row
-
-		--
-		-- <Layer level="BACKGROUND">
-		-- 	<Texture parentKey="disabledBG" hidden="true" alphaMode="MOD">
-		-- 		<Anchors>
-		-- 			<Anchor point="TOPLEFT" x="2" y="-2"/>
-		-- 			<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
-		-- 		</Anchors>
-		-- 		<Color r="0.55" g="0.55" b="0.55" a="1"/>
-		-- 	</Texture>
-		-- </Layer>
-		--
 
 		local icon = row:CreateTexture(nil, "OVERLAY")
 		icon:SetSize(32, 32)
