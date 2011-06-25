@@ -238,6 +238,7 @@ frame:SetScript("OnShow", function(frame)
 				local name, title, notes, enabled, loadable, reason = GetAddOnInfo(i + offset)
 				local version = GetAddOnMetadata(i + offset, "Version")
 				local launchericon = GetAddOnMetadata(i + offset, "X-LoadOn-LDB-Launcher") or GetAddOnMetadata(i + offset, "X-Icon")
+				if launchericon then launchericon = string.split(" ", launchericon) end
 
 				local loaded = IsAddOnLoaded(i + offset)
 				local lod = IsAddOnLoadOnDemand(i + offset)
