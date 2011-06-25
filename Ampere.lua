@@ -137,7 +137,7 @@ frame:SetScript("OnShow", function(frame)
 		self.row:UnlockHighlight()
 		OnLeave(self.row)
 	end
-	local NUMROWS = math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP))
+	local NUMROWS = math.floor((frame:GetHeight()-135)/(ROWHEIGHT + ROWGAP))
 	local CONTAINERGAP = 5
 	local container = CreateFrame("Frame", nil, frame)
 	container:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
