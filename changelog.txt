@@ -1,3 +1,7 @@
+4.2.0.17-Beta
+    New layout shits for 4.2's bigger addon panel
+    Add support for AddonLoader's LoadOn-InterfaceOptions thingy
+
 4.1.0.16-Beta
     Add onhover row highlights to make things easier to read
     Adjust panel for new biggerer config panels in 4.2
