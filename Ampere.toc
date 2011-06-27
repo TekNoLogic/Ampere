@@ -7,9 +7,11 @@
 ## Version: Alpha
 ## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
+## X-Icon: Interface\Icons\Spell_Nature_StormReach
 
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
+## X-LoadOn-InterfaceOptions: Ampere
 
 LibStub.lua
 tekKonfigScroll.lua

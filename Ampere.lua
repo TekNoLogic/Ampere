@@ -2,7 +2,7 @@
 local myname, ns = ...
 local L = ns.L
 local Refresh = function() end
-local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 20, 2, 4
+local EDGEGAP, ROWHEIGHT, ROWGAP, GAP = 16, 50, 4, 4
 local NUMADDONS = GetNumAddOns()
 local GOLD_TEXT = {1.0, 0.82, 0}
 local RED_TEXT = {1, 0, 0}
@@ -13,6 +13,7 @@ local STATUS_COLORS = setmetatable({
 	DEP_NOT_DEMAND_LOADED = {1, 0.5, 0},
 	LOAD_ON_DEMAND = {30/256, 1, 0},
 	DISABLED_AT_RELOAD = {163/256, 53/256, 238/256},
+	LOADED_AT_RELOAD = {1, 0.2, 0},
 	DEP_MISSING = {1, 0.5, 0},
 }, {__index = function() return RED_TEXT end})
 
@@ -48,6 +49,8 @@ DisableAllAddOns = function(...)
 	return posthook(orig4(...))
 end
 
+
+if AddonLoader and AddonLoader.RemoveInterfaceOptions then AddonLoader:RemoveInterfaceOptions("Ampere") end
 
 local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Ampere"
@@ -112,7 +115,7 @@ frame:SetScript("OnShow", function(frame)
 	end
 	local function OnLeave() GameTooltip:Hide() end
 	local function OnClick(self)
-		local addon = self:GetParent().addon
+		local addon = self.addon
 		local enabled = enabledstates[addon]
 		PlaySound(enabled and "igMainMenuOptionCheckBoxOff" or "igMainMenuOptionCheckBoxOn")
 		if enabled then DisableAddOn(addon) else EnableAddOn(addon) end
@@ -134,47 +137,81 @@ frame:SetScript("OnShow", function(frame)
 		self.row:UnlockHighlight()
 		OnLeave(self.row)
 	end
-	for i=1,math.floor((frame:GetHeight()-145)/(ROWHEIGHT + ROWGAP)) do
-		local row = CreateFrame("Button", nil, frame)
-		if not anchor then row:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
-		else row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP) end
-		row:SetPoint("LEFT", EDGEGAP, 0)
-		row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+	local NUMROWS = math.floor((frame:GetHeight()-135)/(ROWHEIGHT + ROWGAP))
+	local CONTAINERGAP = 5
+	local container = CreateFrame("Frame", nil, frame)
+	container:SetPoint("TOP", subtitle, "BOTTOM", 0, -16)
+	container:SetPoint("LEFT", EDGEGAP, 0)
+	container:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+	container:SetHeight(NUMROWS * ROWHEIGHT + (NUMROWS-1) * ROWGAP + 2*CONTAINERGAP)
+
+	local back = container:CreateTexture(nil, "BACKGROUND")
+	back:SetAllPoints()
+	back:SetTexture("Interface\\Spellbook\\UI-GlyphFrame")
+	back:SetTexCoord(0.49511719, 0.64941406, 0.42578125, 0.79492188)
+
+	for i=1,NUMROWS*2 do
+		local row = CreateFrame("CheckButton", nil, frame)
+		if not anchor then
+			row:SetPoint("TOPLEFT", container, CONTAINERGAP, -CONTAINERGAP)
+			row:SetPoint("RIGHT", container, "CENTER", -ROWGAP/2, 0)
+		elseif i%2 == 0 then
+			row:SetPoint("TOP", anchor, "TOP")
+			row:SetPoint("LEFT", container, "CENTER", ROWGAP/2, 0)
+			row:SetPoint("RIGHT", container, -CONTAINERGAP, 0)
+		else
+			row:SetPoint("TOP", anchor, "BOTTOM", 0, -ROWGAP)
+			row:SetPoint("LEFT", container, CONTAINERGAP, 0)
+			row:SetPoint("RIGHT", container, "CENTER", -ROWGAP/2, 0)
+			-- row:SetPoint("RIGHT", -EDGEGAP*2-8, 0)
+		end
 		row:SetHeight(ROWHEIGHT)
-		anchor = row
+
+		row:SetScript("OnClick", OnClick)
+
+		row:SetNormalTexture("Interface\\ClassTrainerFrame\\TrainerTextures")
+		row:GetNormalTexture():SetTexCoord(0.00195313, 0.57421875, 0.65820313, 0.75000000)
+		row:SetCheckedTexture("Interface\\ClassTrainerFrame\\TrainerTextures")
+		row:GetCheckedTexture():SetTexCoord(0.00195313, 0.57421875, 0.84960938, 0.94140625)
+		row:GetCheckedTexture():SetVertexColor(1,1,1,0.35)
+		row:GetCheckedTexture():SetBlendMode("ADD")
+		row:SetHighlightTexture("Interface\\ClassTrainerFrame\\TrainerTextures")
+		row:GetHighlightTexture():SetTexCoord(0.00195313, 0.57421875, 0.75390625, 0.84570313)
+		row:GetHighlightTexture():SetBlendMode("ADD")
+
+		if i%2 == 1 then anchor = row end
 		rows[i] = row
 
-
-		local highlight = row:CreateTexture()
-		highlight:SetTexture("Interface\\QuestFrame\\UI-QuestLogTitleHighlight")
-		highlight:SetVertexColor(.196, .388, .8, 0.75)
-		highlight:SetAllPoints(row)
-		row:SetHighlightTexture(highlight)
+		local icon = row:CreateTexture(nil, "OVERLAY")
+		icon:SetSize(32, 32)
+		icon:SetPoint("TOPLEFT", 2, -2)
+		row.icon = icon
 
 
-		local check = CreateFrame("CheckButton", nil, row)
-		check:SetWidth(ROWHEIGHT+4)
-		check:SetHeight(ROWHEIGHT+4)
-		check:SetPoint("LEFT")
-		check:SetNormalTexture("Interface\\Buttons\\UI-CheckBox-Up")
-		check:SetPushedTexture("Interface\\Buttons\\UI-CheckBox-Down")
-		check:SetHighlightTexture("Interface\\Buttons\\UI-CheckBox-Highlight")
-		check:SetDisabledCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
-		check:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
-		check:SetScript("OnClick", OnClick)
-		check:SetScript("OnEnter", OnButtEntry)
-		check:SetScript("OnLeave", OnButtPullout)
-		check.row = row
-		row.check = check
+		local version = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		version:SetPoint("TOP", icon, "TOP", -4, 0)
+		version:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		-- version:SetDrawLayer("OVERLAY")
+		row.version = version
 
 
-		local title = row:CreateFontString(nil, "BACKGROUND", "GameFontNormal")
-		title:SetPoint("LEFT", check, "RIGHT", 4, 0)
+		local title = row:CreateFontString(nil, "OVERLAY", "GameTooltipHeaderText")
+		title:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, 0)
+		title:SetPoint("RIGHT", version, "LEFT", -4, 0)
+		-- title:SetDrawLayer("OVERLAY")
 		row.title = title
 
 
+		local subtitle = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, 0)
+		subtitle:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		subtitle:SetJustifyH("LEFT")
+		-- subtitle:SetDrawLayer("OVERLAY")
+		row.subtitle = subtitle
+
+
 		local loadbutton = MakeButton(row)
-		loadbutton:SetPoint("RIGHT")
+		loadbutton:SetPoint("BOTTOMRIGHT", -2, 2)
 		loadbutton:SetText(L["Load"])
 		loadbutton:SetScript("OnClick", LoadOnClick)
 		loadbutton:SetScript("OnEnter", OnButtEntry)
@@ -183,10 +220,9 @@ frame:SetScript("OnShow", function(frame)
 		row.loadbutton = loadbutton
 
 
-		local reason = row:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-		reason:SetPoint("RIGHT", loadbutton, "LEFT", -4, 0)
-		reason:SetPoint("LEFT", title, "RIGHT")
-		reason:SetJustifyH("RIGHT")
+		local reason = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		reason:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, 0)
+		-- reason:SetDrawLayer("OVERLAY")
 		row.reason = reason
 
 		row:SetScript("OnEnter", OnEnter)
@@ -201,7 +237,9 @@ frame:SetScript("OnShow", function(frame)
 			if (i + offset) <= NUMADDONS then
 				local name, title, notes, enabled, loadable, reason = GetAddOnInfo(i + offset)
 				local version = GetAddOnMetadata(i + offset, "Version")
-				if version then title = title.. " |cffff6600("..version:trim()..")" end
+				local launchericon = GetAddOnMetadata(i + offset, "X-LoadOn-LDB-Launcher") or GetAddOnMetadata(i + offset, "X-Icon")
+				if launchericon then launchericon = string.split(" ", launchericon) end
+
 				local loaded = IsAddOnLoaded(i + offset)
 				local lod = IsAddOnLoadOnDemand(i + offset)
 				if lod and not loaded and (not reason or reason == "DISABLED") then
@@ -213,11 +251,15 @@ frame:SetScript("OnShow", function(frame)
 					row.loadbutton:SetWidth(1)
 				end
 				if loaded and not enabledstates[name] then reason = "DISABLED_AT_RELOAD" end
+				if enabled and not loaded and not lod then reason = "LOADED_AT_RELOAD" end
 
-				row.check:SetChecked(enabledstates[name])
+				row:SetChecked(enabledstates[name])
+				row.icon:SetTexture(launchericon or "Interface\\Icons\\INV_Misc_EngGizmos_30")
 				row.title:SetText(title)
+				row.version:SetText(version)
+				row.subtitle:SetText(notes)
 				row.reason:SetText(reason and (TEXT(_G["ADDON_" .. reason] or L[reason])))
-				row.title:SetTextColor(unpack(reason and STATUS_COLORS[reason] or GOLD_TEXT))
+				row.title:SetTextColor(unpack(not enabled and STATUS_COLORS.DISABLED or GOLD_TEXT))
 				if reason then row.reason:SetTextColor(unpack(STATUS_COLORS[reason])) end
 				row.addon = name
 				row.notes = notes
@@ -240,6 +282,7 @@ frame:SetScript("OnShow", function(frame)
 	scrollbar:SetPoint("RIGHT", -16, 0)
 	scrollbar:SetMinMaxValues(0, math.max(0, NUMADDONS-#rows))
 	scrollbar:SetValue(0)
+	scrollbar:SetValueStep(2)
 
 	local f = scrollbar:GetScript("OnValueChanged")
 	scrollbar:SetScript("OnValueChanged", function(self, value, ...)
@@ -249,7 +292,7 @@ frame:SetScript("OnShow", function(frame)
 	end)
 
 	frame:EnableMouseWheel()
-	frame:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*#rows/2) end)
+	frame:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*#rows/2 - 1) end)
 
 
 	local enableall = MakeButton()
